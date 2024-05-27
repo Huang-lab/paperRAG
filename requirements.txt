@@ -1,0 +1,4 @@
+langchain>=0.0.123
+langchain-community>=0.0.6
+chromadb>=0.3.21
+PyPDF2>=3.0.1
