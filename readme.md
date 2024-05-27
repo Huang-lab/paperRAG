@@ -6,10 +6,10 @@ paperRAG is a command-line interface (CLI) tool for populating and querying a da
 
 1. Clone the repository: `git clone https://github.com/your_username/paperRAG.git`
 2. Navigate to the project directory: `cd paperRAG`
-3. Install Ollama from https://ollama.com/ and install your embedding / LLM models of choice
-4. Install the package and its dependencies: `pip install .`
-5. Check and modify the `config.yml` to change the models and settings
-6. Replace the PDFs in the `data` directory to the ones you'd like to query & chat with
+3. Install the package and its dependencies: `pip install .`
+4. Check and modify the `config.py` to change the models and settings
+5. Replace the PDFs in the `data` directory to the ones you'd like to query & chat with
+6. Install Ollama from https://ollama.com/ and install your embedding / LLM models of choice
 
 ## Usage
 
@@ -17,7 +17,8 @@ paperRAG provides two main commands: `populate` and `query`.
 
 ### Populate the Database
 
-To populate the database with PDF documents, use the `populate` command: `paperrag populate [--reset]`
+To populate the database with PDF documents, use the `populate` command:
+`paperrag populate [--reset]`
 
 - `--reset`: This optional flag will clear the existing database before populating it with new documents.
 
@@ -25,7 +26,8 @@ The `populate` command will load all PDF files from the `data` directory, split 
 
 ### Query the Database
 
-To query the database, use the `query` command: `paperrag query "your query text" [--num_queries NUM]`
+To query the database, use the `query` command:
+`paperrag query "your query text" [--num_queries NUM]`
 
 Replace `"your query text"` with the actual query you want to ask. The command will search the database for relevant chunks of text and generate an answer using the OllaMa language model.
 
@@ -47,7 +49,7 @@ The following configuration options are available in the `config.py` file:
 
 Contributions are welcome! Please open an issue or submit a pull request.
 The initial version of this is largely inspired by https://github.com/pixegami/rag-tutorial-v2
-Other reference:
+Other reference: https://huggingface.co/blog/hrishioa/retrieval-augmented-generation-1-basics
 
 ## License
 
