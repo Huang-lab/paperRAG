@@ -1,4 +1,7 @@
 # paperRAG/populate_database.py
+import nest_asyncio
+from llama_index.core import SimpleDirectoryReader
+from llama_parse import LlamaParse
 import os
 import shutil
 import re
@@ -21,6 +24,7 @@ def clean_text(text):
 
 
 def load_documents():
+    # alternative not implemented: LlamaParse, as there may be privacy concerns calling that API https://docs.llamaindex.ai/en/stable/module_guides/loading/connector/llama_parse/
     document_loader = PyPDFDirectoryLoader(DATA_PATH)
     documents = document_loader.load()
     cleaned_documents = []
@@ -33,7 +37,7 @@ def load_documents():
 
 def split_documents(documents: List[Document]):
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=1000,
+        chunk_size=800,
         chunk_overlap=100,
         length_function=len,
         is_separator_regex=False,
