@@ -50,6 +50,7 @@ The following configuration options are available in the `config.py` file:
 Contributions are welcome! Please open an issue or submit a pull request.
 The initial version of this is largely inspired by https://github.com/pixegami/rag-tutorial-v2
 Other reference: https://huggingface.co/blog/hrishioa/retrieval-augmented-generation-1-basics
+https://github.com/langchain-ai/langgraph/blob/main/examples/rag/langgraph_rag_agent_llama3_local.ipynb
 
 ## License
 
