@@ -48,9 +48,10 @@ The following configuration options are available in the `config.py` file:
 ## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request.
-The initial version of this is largely inspired by https://github.com/pixegami/rag-tutorial-v2
-Other reference: https://huggingface.co/blog/hrishioa/retrieval-augmented-generation-1-basics
-https://github.com/langchain-ai/langgraph/blob/main/examples/rag/langgraph_rag_agent_llama3_local.ipynb
+This work is largely inspired by the following works, thanks to the authors that provided the following:
+- https://huggingface.co/blog/hrishioa/retrieval-augmented-generation-1-basics
+- https://github.com/langchain-ai/langgraph/tree/main/examples/rag
+- https://github.com/pixegami/rag-tutorial-v2
 
 ## License
 
