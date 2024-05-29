@@ -1,6 +1,6 @@
 # paperRAG
 
-paperRAG is a command-line interface (CLI) tool for populating and querying a database with PDF documents. It uses the LangChain library and the Chroma vector database to store and retrieve information from PDF files, and language model from OllaMa to generate answers to queries.
+PaperRAG is a command-line tool that enables users to populate a local database with PDF documents and query it using natural language questions. PaperRAG leverages Retrieval Augmented Generation (RAG), combining information retrieval from the document database with answers generated from large language models (LLMs). This approach allows users to obtain informative answers synthesized from relevant document passages, without exposing the original documents or requiring internet access. PaperRAG is designed with privacy and security in mind, operating entirely on the user's local machine without any data transfer. Specifically, it uses the LangChain library and the Chroma vector database to store and retrieve information from PDF files, and large language models from OllaMa to generate answers to queries.
 
 ## Installation
 
