@@ -1,16 +1,14 @@
 # paperRAG/populate_database.py
 import nest_asyncio
-from llama_index.core import SimpleDirectoryReader
-from llama_parse import LlamaParse
 import os
 import shutil
 import re
+from typing import List
 from langchain_community.document_loaders import PyPDFDirectoryLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain.schema.document import Document
-from .embeddings import get_embedding_function
 from langchain_community.vectorstores import Chroma
-from typing import List
+from .embeddings import get_embedding_function
 from .config import DATA_PATH, CHROMA_PATH
 
 

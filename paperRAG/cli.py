@@ -1,8 +1,7 @@
-# paperRAG/cli.py
 import argparse
+import time
 from .query_database import query_rag
 from .populate_database import clear_database, load_documents, split_documents, add_to_chroma
-
 
 def main():
     parser = argparse.ArgumentParser(
@@ -24,14 +23,28 @@ def main():
     args = parser.parse_args()
 
     if args.command == "populate":
+        start_time = time.time()
+        
         if args.reset:
             print("✨ Clearing Database")
             clear_database()
+        
         documents = load_documents()
         chunks = split_documents(documents)
         add_to_chroma(chunks)
+        
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        print(f"Total population time: {elapsed_time:.2f} seconds")
+    
     elif args.command == "query":
+        start_time = time.time()
+        
         query_rag(args.query_text, num_queries=args.num_queries)
+        
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+        print(f"Total query time: {elapsed_time:.2f} seconds")
     else:
         parser.print_help()
 

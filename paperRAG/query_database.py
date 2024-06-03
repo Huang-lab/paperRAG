@@ -1,5 +1,5 @@
 # paperRAG/query_database.py
-
+import time
 from langchain_community.vectorstores import Chroma
 from langchain.prompts import ChatPromptTemplate
 from langchain_community.llms.ollama import Ollama
@@ -39,8 +39,14 @@ def query_rag(query_text: str, num_queries: int):
     prompt = prompt_template.format(context=context_text, question=query_text)
     print(prompt)
 
+    # Measure the time taken to generate the response
+    start_time = time.time()
     model = Ollama(model=LLM_MODEL_NAME)
     response_text = model.invoke(prompt)
+    end_time = time.time()
+    
+    elapsed_time = end_time - start_time
+    print(f"{LLM_MODEL_NAME} response generation time: {elapsed_time:.2f} seconds")
 
     sources = [doc.metadata.get("id", None) for doc in results]
     formatted_response = f"Response: {response_text}\nSources: {sources}"

@@ -2,7 +2,7 @@
 CHROMA_PATH = "chroma"
 DATA_PATH = "data"
 EMBEDDING_MODEL_NAME = "mxbai-embed-large"
-LLM_MODEL_NAME = "phi3:mini"
+LLM_MODEL_NAME = "phi3:mini" #llama3
 PROMPT_TEMPLATE = """
 Answer the question using the relevant parts of this information:
 
