@@ -1,9 +1,6 @@
 from langchain_community.embeddings.ollama import OllamaEmbeddings
-from .config import EMBEDDING_MODEL_NAME
 
 
-def get_embedding_function():
-
-    embeddings = OllamaEmbeddings(
-        model=EMBEDDING_MODEL_NAME)
+def get_embedding_function(embed_model_name: str):
+    embeddings = OllamaEmbeddings(model=embed_model_name)
     return embeddings

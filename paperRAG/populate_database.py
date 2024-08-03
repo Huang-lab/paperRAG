@@ -1,11 +1,10 @@
 # paperRAG/populate_database.py
-import nest_asyncio
 import os
 import shutil
 import re
 from typing import List
 from langchain_community.document_loaders import PyPDFDirectoryLoader
-from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema.document import Document
 from langchain_community.vectorstores import Chroma
 from .embeddings import get_embedding_function
@@ -43,10 +42,11 @@ def split_documents(documents: List[Document]):
     return text_splitter.split_documents(documents)
 
 
-def add_to_chroma(chunks: List[Document]):
+def add_to_chroma(chunks: List[Document], embed_model_name: str):
     # Load the existing database.
     db = Chroma(
-        persist_directory=CHROMA_PATH, embedding_function=get_embedding_function()
+        persist_directory=CHROMA_PATH, embedding_function=get_embedding_function(
+            embed_model_name)
     )
 
     # Calculate Page IDs.

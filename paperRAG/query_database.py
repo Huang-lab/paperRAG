@@ -7,16 +7,16 @@ from langchain.retrievers import EnsembleRetriever
 from langchain_community.retrievers import BM25Retriever
 from .embeddings import get_embedding_function
 from .populate_database import load_documents
-from .config import CHROMA_PATH, LLM_MODEL_NAME, PROMPT_TEMPLATE
+from .config import CHROMA_PATH
 
 
-def query_rag(query_text: str, num_queries: int):
+def query_rag(query_text: str, num_queries: int, llm_model_name: str, embed_model_name: str, prompt_template: str):
     # Prepare the DB & search by ensemble and rerank the results based on the Reciprocal Rank Fusion algorithm https://python.langchain.com/v0.1/docs/modules/data_connection/retrievers/ensemble/
-    keyword_weight = 0.5
+    keyword_weight = 0.2
     vector_weight = 1 - keyword_weight
     documents = load_documents()
     vector_db = Chroma(persist_directory=CHROMA_PATH,
-                       embedding_function=get_embedding_function())
+                       embedding_function=get_embedding_function(embed_model_name))
 
     # Set up retrievers
     vector_retriever = vector_db.as_retriever(
@@ -35,18 +35,20 @@ def query_rag(query_text: str, num_queries: int):
     context_text = "\n\n---\n\n".join(
         [doc.page_content for doc in results])
 
-    prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
+    prompt_template = ChatPromptTemplate.from_template(prompt_template)
     prompt = prompt_template.format(context=context_text, question=query_text)
     print(prompt)
 
     # Measure the time taken to generate the response
     start_time = time.time()
-    model = Ollama(model=LLM_MODEL_NAME)
+    model = Ollama(model=llm_model_name)
     response_text = model.invoke(prompt)
     end_time = time.time()
-    
+
     elapsed_time = end_time - start_time
-    print(f"{LLM_MODEL_NAME} response generation time: {elapsed_time:.2f} seconds")
+    print(
+        f"{llm_model_name} response generation time: {elapsed_time:.2f} seconds"
+    )
 
     sources = [doc.metadata.get("id", None) for doc in results]
     formatted_response = f"Response: {response_text}\nSources: {sources}"
