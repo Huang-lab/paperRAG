@@ -1,15 +1,19 @@
-name: paperrag-dev
+name: paperrag-env
 channels:
   - defaults
   - conda-forge
 dependencies:
   - python=3.8
   - pip
+  - docker-py  # For interacting with Docker
   - pip:
     - langchain>=0.0.123
     - langchain-community>=0.0.6
-    - chromadb>=0.3.21
+    - langchain-chroma>=0.1.4
     - PyPDF2>=3.0.1
+    - pypdf==5.0.0 
+    - rank_bm25==0.2.2
+
 
 variables:
   PYTHONPATH: ${CONDA_PREFIX}/lib/python3.8/site-packages
