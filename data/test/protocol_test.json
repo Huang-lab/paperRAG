@@ -1,0 +1,317 @@
+{
+    "categories": [
+      {
+        "name": "DNA Extraction and Quality Assessment",
+        "questions": [
+          {
+            "id": 1,
+            "type": "exact_answer",
+            "question": "What is the recommended input mass of stool for the DNA extraction protocol?",
+            "ground_truth": "150 mg",
+            "context": "Keeping the frozen stool sample on dry ice as much as possible (to maintain sample integrity), place the sample tube in a tube rack and use a biopsy punch to distribute a 150-mg aliquot of stool into a 2-ml microcentrifuge tube."
+          },
+          {
+            "id": 2,
+            "type": "multiple_choice",
+            "question": "Which enzymes are used in the enzymatic lysis step?",
+            "options": [
+              "Lytic enzyme solution",
+              "MetaPolyzyme",
+              "RNase A",
+              "Proteinase K"
+            ],
+            "ground_truth": ["Lytic enzyme solution", "MetaPolyzyme"],
+            "context": "Add 5 μl of Qiagen lytic enzyme solution and 10 μl of MetaPolyzyme to the stool suspension."
+          },
+          {
+            "id": 3,
+            "type": "short_answer",
+            "question": "What are the three key parameters assessed for DNA quality after extraction?",
+            "ground_truth": ["Concentration", "Contamination", "Size distribution"],
+            "context": "After size selection, the resultant DNA should be assessed for concentration, contamination and size distribution."
+          },
+          {
+            "id": 4,
+            "type": "true_false",
+            "question": "Mechanical lysis methods like bead beating are preferred over enzymatic lysis for HMW DNA extraction.",
+            "ground_truth": false,
+            "context": "Enzymatic lysis is advantageous for HMW extraction, as it avoids the extensive shearing caused by mechanical lysis approaches."
+          },
+          {
+            "id": 5,
+            "type": "exact_answer",
+            "question": "What is the suggested minimum A260/A230 ratio for DNA purity?",
+            "ground_truth": "2.0",
+            "context": "The suggested sample purity is A260/A230 > 2.0 and A260/A280 > 1.8."
+          }
+        ]
+      },
+      {
+        "name": "Sequencing and Library Preparation",
+        "questions": [
+          {
+            "id": 6,
+            "type": "exact_answer",
+            "question": "What is the recommended minimum DNA concentration for the Oxford Nanopore Genomic DNA by Ligation kit?",
+            "ground_truth": "20 ng/μl",
+            "context": "The Oxford Nanopore Genomic DNA by Ligation kit requires an input of 50 μl and suggests a minimum DNA concentration of 20 ng/μl, for a total mass of 1,000 ng."
+          },
+          {
+            "id": 7,
+            "type": "multiple_choice",
+            "question": "Which of the following are steps in the Oxford Nanopore Genomic DNA by Ligation protocol?",
+            "options": [
+              "DNA repair",
+              "End preparation",
+              "Adapter attachment",
+              "PCR amplification"
+            ],
+            "ground_truth": ["DNA repair", "End preparation", "Adapter attachment"],
+            "context": "We recommend preparing DNA for nanopore sequencing by using the Oxford Nanopore Genomic DNA by Ligation library preparation kit, which incorporates steps for DNA repair, DNA end preparation and sequencing adapter attachment."
+          },
+          {
+            "id": 8,
+            "type": "true_false",
+            "question": "The Oxford Nanopore Rapid Sequencing protocol requires more input DNA than the Genomic DNA by Ligation protocol.",
+            "ground_truth": false,
+            "context": "The Oxford Nanopore Rapid Sequencing protocol is an acceptable alternative protocol for DNA extractions with lower total mass, as the protocol's suggested input is 400 ng."
+          },
+          {
+            "id": 9,
+            "type": "exact_answer",
+            "question": "What is the recommended runtime setting for a MinION sequencing run?",
+            "ground_truth": "96 h",
+            "context": "Set the runtime to 96 h, as the flow cell may still be viable after the default run duration has elapsed."
+          },
+          {
+            "id": 10,
+            "type": "short_answer",
+            "question": "What are two advantages of the Oxford Nanopore Genomic DNA by Ligation protocol over the Rapid Sequencing protocol?",
+            "ground_truth": [
+              "Higher total sequencing output",
+              "Better for higher input DNA mass"
+            ],
+            "context": "We recommend the ligation sequencing kit for its higher total sequencing output. Other kits, such as Oxford Nanopore Rapid Sequencing (SQK-RAD004), are also appropriate in cases of lower total DNA mass but may result in lower total sequencing yield."
+          }
+        ]
+      },
+      {
+        "name": "Bioinformatics and Data Analysis",
+        "questions": [
+          {
+            "id": 11,
+            "type": "multiple_choice",
+            "question": "Which of the following are long-read assemblers mentioned in the protocol?",
+            "options": [
+              "Canu",
+              "Flye",
+              "SPAdes",
+              "MEGAHIT"
+            ],
+            "ground_truth": ["Canu", "Flye"],
+            "context": "Various assemblers are appropriate for the assembly of long-read metagenomic data. These include long-read assemblers, such as Canu, Flye, miniasm and wtdbg2, and hybrid assemblers, such as hybridSPADES and OPERA-MS."
+          },
+          {
+            "id": 12,
+            "type": "exact_answer",
+            "question": "What is the name of the computational workflow developed for basecalling, assembly, and circularization of long-read metagenomic data?",
+            "ground_truth": "Lathe",
+            "context": "For this purpose, we have developed Lathe, a workflow that combines basecalling, assembly and circularization steps into one workflow (Fig. 2)."
+          },
+          {
+            "id": 13,
+            "type": "short_answer",
+            "question": "What are the two recommended polishing methods in the Lathe workflow?",
+            "ground_truth": ["Long-read polishing", "Short-read polishing"],
+            "context": "After assembly, contigs are polished with long reads by using Racon and Medaka, shotgun sequencing short reads by using Pilon or both long reads and short reads."
+          },
+          {
+            "id": 14,
+            "type": "true_false",
+            "question": "The Lathe workflow includes steps for taxonomic classification of assembled genomes.",
+            "ground_truth": false,
+            "context": "The final outputs of Lathe include basecalled FASTQ files, the full assembly and a folder of circularized genomes (Supplementary Note 2). These outputs can be used directly in downstream processing steps, such as binning and taxonomic classification."
+          },
+          {
+            "id": 15,
+            "type": "exact_answer",
+            "question": "What is the minimum contig size threshold for circularization in the Lathe workflow?",
+            "ground_truth": "1.7 Mb",
+            "context": "After polishing, Lathe evaluates candidate contigs >1.7 Mb for circularization. This threshold is set to include most whole genome-scale contigs while excluding smaller contigs to speed up the computationally intensive circularization steps."
+          }
+        ]
+      },
+      {
+        "name": "dbGaP and Data Access",
+        "questions": [
+          {
+            "id": 16,
+            "type": "true_false",
+            "question": "dbGaP data are organized into consent groups based on participants' agreement to the same data use limitations.",
+            "ground_truth": true,
+            "context": "The dbGaP data are organized into consent groups which consist of all of the data from study participants who have agreed to the same data use limitations as specified in the informed consent for the study."
+          },
+          {
+            "id": 17,
+            "type": "short_answer",
+            "question": "What are two key components required for accessing dbGaP controlled-access data?",
+            "ground_truth": [
+              "Institutional affiliation",
+              "Valid eRA Commons account"
+            ],
+            "context": "The Principal Investigator (PI) must be a tenure-track professor, senior scientist, or equivalent, to be able to submit a data access request (DAR) and have a valid eRA Commons account for logging in to the dbGaP system."
+          },
+          {
+            "id": 18,
+            "type": "exact_answer",
+            "question": "How long is the typical approval period for a dbGaP data access request?",
+            "ground_truth": "1 year",
+            "context": "The approval of a DAR is typically granted for a one-year period."
+          },
+          {
+            "id": 19,
+            "type": "multiple_choice",
+            "question": "Which of the following are steps in the dbGaP data access request process?",
+            "options": [
+              "PI submits request",
+              "Institutional Signing Official approval",
+              "Data Access Committee review",
+              "Public voting"
+            ],
+            "ground_truth": ["PI submits request", "Institutional Signing Official approval", "Data Access Committee review"],
+            "context": "Applicants log in to the dbGaP Authorized Access System as a Principal Investigator (PI) using the username and password of the applicant's eRA Commons account. The applicant creates a project and follows multiple steps to complete and submit the online application. Note: requests for several consent groups from different dbGaP studies can be included in the same project. The application then is forwarded to an Institutional Signing Official (SO) for approval. The SO approves the requests and they move into the queue of a NIH Data Access Committee (DAC) to review."
+          },
+          {
+            "id": 20,
+            "type": "true_false",
+            "question": "Aggregate level data from dbGaP studies are freely available without authorization.",
+            "ground_truth": false,
+            "context": "Due to the findings in the Homer et al, aggregate level data are no longer available through the dbGaP public ftp site. The data are only available via the dbGaP Authorized Access System together with the individual level data."
+          }
+        ]
+      },
+      {
+        "name": "Experimental Design and Troubleshooting",
+        "questions": [
+          {
+            "id": 21,
+            "type": "short_answer",
+            "question": "What are two recommended actions if DNA yield is low (<10 ng/μl) after extraction?",
+            "ground_truth": [
+              "Ensure SPRI beads are thoroughly resuspended",
+              "Increase the ratio of SPRI beads to sample volume"
+            ],
+            "context": "Low DNA yield (<10 ng/μl): Poor recovery of DNA from SPRI beads, SPRI bead ratio too stringent or SPRI beads not properly resuspended before preparing aliquots. Solution: Ensure that SPRI beads are thoroughly resuspended. Increase the ratio of SPRI beads to sample volume (e.g., 0.85 or 0.9 volumes of bead suspension)."
+          },
+          {
+            "id": 22,
+            "type": "multiple_choice",
+            "question": "Which of the following are potential reasons for DNA contamination levels being above recommended thresholds?",
+            "options": [
+              "Carryover of ethanol",
+              "Carryover of phenol",
+              "Carryover of isopropanol",
+              "Bacterial contamination"
+            ],
+            "ground_truth": ["Carryover of ethanol", "Carryover of phenol", "Carryover of isopropanol"],
+            "context": "DNA contamination levels are above recommended thresholds: Carryover of ethanol, phenol or isopropanol. Solution: Perform an additional SPRI bead selection by using a 1:1 ratio of beads to sample volume."
+          },
+          {
+            "id": 23,
+            "type": "true_false",
+            "question": "The protocol recommends using mechanical lysis methods for samples with limited input material.",
+            "ground_truth": false,
+            "context": "Although mechanical lysis approaches may be sufficient in circumstances with abundant input material, such that extensive size selection is allowable, our approach optimizes for high DNA yield and is advantageous in scenarios with limited input sample volume."
+          },
+          {
+            "id": 24,
+            "type": "exact_answer",
+            "question": "What is the recommended action if the sample does not flow through the Genomic-tip column?",
+            "ground_truth": "Use a disposable syringe to slowly depress air into the column",
+            "context": "The sample does not flow through the column: DNA is highly concentrated. Solution: Use a disposable syringe to slowly depress air into the column to gently encourage sample flow."
+          },
+          {
+            "id": 25,
+            "type": "short_answer",
+            "question": "What are two key considerations when adapting this protocol for other sample types?",
+            "ground_truth": [
+              "Review existing sample-specific protocols",
+              "Consider additional purification steps for sample-specific contaminants"
+            ],
+            "context": "Researchers attempting to adapt this protocol to an alternative sample type should review any sample-specific protocols that currently exist (HMW or otherwise) and prepare the sample according to pre-lysis specifications (i.e., specific culturing, pelleting, resuspension or homogenization methods). In addition, the researcher should review existing protocols for additional purification steps that may target contaminants specific to their sample type and consider including those steps after lysis."
+          }
+        ]
+      },
+      {
+        "name": "Advanced Concepts and Applications",
+        "questions": [
+          {
+            "id": 26,
+            "type": "open_ended",
+            "question": "Explain the advantages and limitations of using long-read sequencing for metagenomic assembly compared to short-read sequencing.",
+            "ground_truth": [
+              "Advantages:",
+              "- Better resolution of repetitive regions and mobile genetic elements",
+              "- Improved detection of structural variants",
+              "- Ability to generate more contiguous or circular bacterial genomes",
+              "Limitations:",
+              "- Higher error rates, especially in homopolymer regions",
+              "- May require additional polishing steps for high accuracy",
+              "- Higher cost per base compared to short-read sequencing"
+            ],
+            "context": "Long-read sequencing approaches have greatly advanced genome assembly across fields, as longer reads are capable of bridging repeated regions to solve the structure of repetitive genomes. In addition, long reads are able to directly span single-nucleotide polymorphisms within a genome, allowing for improved detection of strain heterogeneity in a complex population. [...] As nanopore sequencing incurs a high error rate in homopolymer regions, and PacBio sequencing has a high, but relatively random error rate, polishing with short reads is still recommended for indel correction and high quality assembly."
+          },
+          {
+            "id": 27,
+            "type": "short_answer",
+            "question": "What are two main challenges in extracting high-molecular-weight DNA from stool samples?",
+            "ground_truth": [
+              "Avoiding DNA shearing during extraction",
+              "Efficient lysis of diverse microbial communities"
+            ],
+            "context": "Extraction of sufficient quantities of HMW DNA from stool samples has been a longstanding obstacle, as the vigorous mechanical lysis used to evenly and efficiently extract DNA from various organisms often yields overly fragmented DNA."
+          },
+          {
+            "id": 28,
+            "type": "true_false",
+            "question": "The protocol described is equally effective for extracting DNA from all microorganisms in a complex community.",
+            "ground_truth": false,
+            "context": "Characterization of bias between this enzymatic approach and vigorous bead beating approaches has shown that enzymatic extraction can lead to some lysis bias, but that this bias does not systematically deplete Gram-positive organisms."
+          },
+          {
+            "id": 29,
+            "type": "multiple_choice",
+            "question": "Which of the following are potential applications of the described long-read metagenomic sequencing approach?",
+            "options": [
+              "Identifying novel mobile genetic elements",
+              "Detecting strain-level variations in microbial populations",
+              "Assembling complete circular bacterial genomes",
+              "Quantifying absolute abundance of all microorganisms"
+            ],
+            "ground_truth": [
+              "Identifying novel mobile genetic elements",
+              "Detecting strain-level variations in microbial populations",
+              "Assembling complete circular bacterial genomes"
+            ],
+            "context": "We have recently applied these methods to human stool samples, yielding many highly contiguous draft genomes as well as 20 single-contig, fully circular bacterial and archaeal genomes. The contiguity of these sequences has allowed us to identify multiple types of mobile genetic elements in bacterial genomes that have evaded circularization despite being found in high abundance, illustrating the utility of this approach for investigating bacterial genome structure and evolution."
+          },
+          {
+            "id": 30,
+            "type": "open_ended",
+            "question": "Discuss the potential impact of this long-read metagenomic sequencing approach on our understanding of the human gut microbiome and its implications for health and disease.",
+            "ground_truth": [
+              "Improved understanding of microbial genome structure and evolution",
+              "Better characterization of mobile genetic elements and their role in antibiotic resistance and virulence",
+              "More accurate identification of strain-level variations in microbial populations",
+              "Enhanced ability to link genomic features to specific microbial functions and host interactions",
+              "Potential for discovering novel microorganisms or genomic elements missed by short-read sequencing",
+              "Improved resolution of complex microbial communities in health and disease states",
+              "Better understanding of horizontal gene transfer and its impact on microbial adaptation",
+              "Potential for developing more targeted therapeutic approaches based on detailed genomic information"
+            ],
+            "context": "The contiguity of these sequences has allowed us to identify multiple types of mobile genetic elements in bacterial genomes that have evaded circularization despite being found in high abundance, illustrating the utility of this approach for investigating bacterial genome structure and evolution. [...] Such elements are integral to understanding genome plasticity, niche specificity and microbial evolution, as mobile genetic elements are often associated with biologically relevant phenotypes, such as antibiotic resistance, virulence and nutrient utilization."
+          }
+        ]
+      }
+    ]
+  }
