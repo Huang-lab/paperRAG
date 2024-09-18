@@ -28,15 +28,19 @@ def main():
         "--embed_model", type=str, default="mxbai-embed-large", help="Embedding model name")
     query_parser.add_argument(
         "--prompt_template", type=str, default="""
-Answer the question using the relevant parts of this information:
+                Context: 
+                {context}
 
-{context}
+                Question: 
+                {question}
 
----
+                Instructions:
+                - Use the provided context to answer the question.
+                - Be as thorough and precise as possible.
+                - If the context does not provide enough information to answer the question, state that clearly.
 
-Answer the question based on relevant parts of the above context: {question}
-Be thorough and provide precise answers.
-""", help="Prompt template")
+                Answer:
+            """, help="Prompt template")
 
     args = parser.parse_args()
 
