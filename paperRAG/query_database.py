@@ -10,6 +10,12 @@ from .populate_database import load_documents
 from .config import CHROMA_PATH
 
 
+# TODO: Resolve the issue: Model Initialization
+# The LLM model is currently being initialized every time a query is executed
+# (inside the query_rag function), which causes significant delays in response times.
+# A better approach would be to initialize the model once and reuse it for subsequent queries.
+# This will improve performance and reduce latency. Consider using a class for model reuse.
+
 def query_rag(query_text: str, num_queries: int, llm_model_name: str, embed_model_name: str, prompt_template: str):
     # Prepare the DB & search by ensemble and rerank the results based on the Reciprocal Rank Fusion algorithm https://python.langchain.com/v0.1/docs/modules/data_connection/retrievers/ensemble/
     keyword_weight = 0.2
@@ -41,7 +47,7 @@ def query_rag(query_text: str, num_queries: int, llm_model_name: str, embed_mode
 
     # Measure the time taken to generate the response
     start_time = time.time()
-    model = Ollama(model=llm_model_name) # QUESTION: Why do we initialize the model for each query?
+    model = Ollama(model=llm_model_name) # ISSUE: Model Initialization 
     response_text = model.invoke(prompt)
     end_time = time.time()
 
