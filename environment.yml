@@ -1,0 +1,15 @@
+name: paperrag-dev
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.8
+  - pip
+  - pip:
+    - langchain>=0.0.123
+    - langchain-community>=0.0.6
+    - chromadb>=0.3.21
+    - PyPDF2>=3.0.1
+
+variables:
+  PYTHONPATH: ${CONDA_PREFIX}/lib/python3.8/site-packages
