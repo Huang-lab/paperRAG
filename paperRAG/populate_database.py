@@ -6,7 +6,7 @@ from typing import List
 from langchain_community.document_loaders import PyPDFDirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema.document import Document
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma # previous version was being depreciated
 from .embeddings import get_embedding_function
 from .config import DATA_PATH, CHROMA_PATH
 
@@ -21,6 +21,8 @@ def clean_text(text):
 
 
 def load_documents():
+    # TODO: Implement caching to avoid reloading/processing documents each time, using file-based or in-memory storage.
+
     # alternative not implemented: LlamaParse, as there may be privacy concerns calling that API https://docs.llamaindex.ai/en/stable/module_guides/loading/connector/llama_parse/
     document_loader = PyPDFDirectoryLoader(DATA_PATH)
     documents = document_loader.load()
@@ -67,7 +69,6 @@ def add_to_chroma(chunks: List[Document], embed_model_name: str):
         print(f"👉 Adding new doc segments: {len(new_chunks)}")
         new_chunk_ids = [chunk.metadata["id"] for chunk in new_chunks]
         db.add_documents(new_chunks, ids=new_chunk_ids)
-        db.persist()
     else:
         print("✅ No new doc segments to add")
 

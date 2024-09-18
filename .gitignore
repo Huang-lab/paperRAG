@@ -1,0 +1,57 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE-specific files
+.vscode/
+.idea/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environment variables
+.env
+
+# Data files (if not meant to be version controlled)
+/data/
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Cython-generated C files
+*.c
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Configuration files with sensitive information
+config.ini
+config.json
+
+# Database files
+*.db
+*.sqlite3
+
+# Temporary files
+*.tmp
+*.swp
+
+# Binary files
+*.bin

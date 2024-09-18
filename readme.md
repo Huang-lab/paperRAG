@@ -47,7 +47,8 @@ The following configuration options are available in the `config.py` file:
 
 ## Contributing
 
-Contributions are welcome! Please open an issue or submit a pull request.
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details on how to contribute to this project.
+
 This work is largely inspired by the following works, thanks to the authors that provided the following:
 - https://huggingface.co/blog/hrishioa/retrieval-augmented-generation-1-basics
 - https://github.com/langchain-ai/langgraph/tree/main/examples/rag
