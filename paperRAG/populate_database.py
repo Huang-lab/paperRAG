@@ -2,11 +2,12 @@
 import os
 import shutil
 import re
+import pickle
 from typing import List
 from langchain_community.document_loaders import PyPDFDirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.schema.document import Document
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma # previous version was being depreciated
 from .embeddings import get_embedding_function
 from .config import DATA_PATH, CHROMA_PATH
 
@@ -21,14 +22,20 @@ def clean_text(text):
 
 
 def load_documents():
-    # alternative not implemented: LlamaParse, as there may be privacy concerns calling that API https://docs.llamaindex.ai/en/stable/module_guides/loading/connector/llama_parse/
-    document_loader = PyPDFDirectoryLoader(DATA_PATH)
-    documents = document_loader.load()
-    cleaned_documents = []
-    for document in documents:
-        cleaned_text = clean_text(document.page_content)
-        cleaned_documents.append(
-            Document(page_content=cleaned_text, metadata=document.metadata))
+    # Only load documents once, not on every query
+    if not os.path.exists('cached_documents.pkl'):
+        document_loader = PyPDFDirectoryLoader(DATA_PATH)
+        documents = document_loader.load()
+        cleaned_documents = []
+        for document in documents:
+            cleaned_text = clean_text(document.page_content)
+            cleaned_documents.append(
+                Document(page_content=cleaned_text, metadata=document.metadata))
+        with open('cached_documents.pkl', 'wb') as f:
+            pickle.dump(cleaned_documents, f)
+    else:
+        with open('cached_documents.pkl', 'rb') as f:
+            cleaned_documents = pickle.load(f)
     return cleaned_documents
 
 
@@ -48,6 +55,7 @@ def add_to_chroma(chunks: List[Document], embed_model_name: str):
         persist_directory=CHROMA_PATH, embedding_function=get_embedding_function(
             embed_model_name)
     )
+    
 
     # Calculate Page IDs.
     chunks_with_ids = calculate_chunk_ids(chunks)
@@ -67,7 +75,6 @@ def add_to_chroma(chunks: List[Document], embed_model_name: str):
         print(f"👉 Adding new doc segments: {len(new_chunks)}")
         new_chunk_ids = [chunk.metadata["id"] for chunk in new_chunks]
         db.add_documents(new_chunks, ids=new_chunk_ids)
-        db.persist()
     else:
         print("✅ No new doc segments to add")
 

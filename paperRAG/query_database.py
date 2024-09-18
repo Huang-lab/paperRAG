@@ -1,6 +1,6 @@
 # paperRAG/query_database.py
 import time
-from langchain_community.vectorstores import Chroma
+from langchain_chroma import Chroma
 from langchain.prompts import ChatPromptTemplate
 from langchain_community.llms.ollama import Ollama
 from langchain.retrievers import EnsembleRetriever
@@ -37,11 +37,11 @@ def query_rag(query_text: str, num_queries: int, llm_model_name: str, embed_mode
 
     prompt_template = ChatPromptTemplate.from_template(prompt_template)
     prompt = prompt_template.format(context=context_text, question=query_text)
-    print(prompt)
+    #print(prompt)
 
     # Measure the time taken to generate the response
     start_time = time.time()
-    model = Ollama(model=llm_model_name)
+    model = Ollama(model=llm_model_name) # QUESTION: Why do we initialize the model for each query?
     response_text = model.invoke(prompt)
     end_time = time.time()
 
