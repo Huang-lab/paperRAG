@@ -2,7 +2,6 @@
 import os
 import shutil
 import re
-import pickle
 from typing import List
 from langchain_community.document_loaders import PyPDFDirectoryLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -22,20 +21,16 @@ def clean_text(text):
 
 
 def load_documents():
-    # Only load documents once, not on every query
-    if not os.path.exists('cached_documents.pkl'):
-        document_loader = PyPDFDirectoryLoader(DATA_PATH)
-        documents = document_loader.load()
-        cleaned_documents = []
-        for document in documents:
-            cleaned_text = clean_text(document.page_content)
-            cleaned_documents.append(
-                Document(page_content=cleaned_text, metadata=document.metadata))
-        with open('cached_documents.pkl', 'wb') as f:
-            pickle.dump(cleaned_documents, f)
-    else:
-        with open('cached_documents.pkl', 'rb') as f:
-            cleaned_documents = pickle.load(f)
+    # TODO: Implement caching to avoid reloading/processing documents each time, using file-based or in-memory storage.
+
+    # alternative not implemented: LlamaParse, as there may be privacy concerns calling that API https://docs.llamaindex.ai/en/stable/module_guides/loading/connector/llama_parse/
+    document_loader = PyPDFDirectoryLoader(DATA_PATH)
+    documents = document_loader.load()
+    cleaned_documents = []
+    for document in documents:
+        cleaned_text = clean_text(document.page_content)
+        cleaned_documents.append(
+            Document(page_content=cleaned_text, metadata=document.metadata))
     return cleaned_documents
 
 
@@ -55,7 +50,6 @@ def add_to_chroma(chunks: List[Document], embed_model_name: str):
         persist_directory=CHROMA_PATH, embedding_function=get_embedding_function(
             embed_model_name)
     )
-    
 
     # Calculate Page IDs.
     chunks_with_ids = calculate_chunk_ids(chunks)
