@@ -9,7 +9,17 @@ PaperRAG is a command-line tool that enables users to populate a local database 
 3. Install the package and its dependencies: `pip install .`
 4. Check and modify the `config.py` to change the models and settings
 5. Replace the PDFs in the `data` directory to the ones you'd like to query & chat with
-6. Install Ollama from https://ollama.com/ and install your embedding / LLM models of choice
+6. Install [Ollama](https://ollama.com/)  
+
+    - Install your embedding / LLM models of choice
+   ```bash 
+   ollama pull mxbai-embed-large  
+   ollama pull llama3.1  
+   ```
+    - Run ChromaDB 
+   ```bash  
+   chroma serve  
+   ```
 
 ## Usage
 
